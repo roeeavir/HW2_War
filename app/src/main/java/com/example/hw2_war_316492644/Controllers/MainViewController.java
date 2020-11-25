@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.hw2_war_316492644.Activities.ResultsActivity;
 import com.example.hw2_war_316492644.Models.WarCardGame;
 import com.example.hw2_war_316492644.R;
@@ -18,7 +19,7 @@ public class MainViewController { // Main Activity Controller Class
     private AppCompatActivity activity;
 
     private TextView main_LBL_leftScore, main_LBL_rightScore, main_LBL_center;
-    private ImageView main_IMG_leftCard, main_IMG_rightCard;
+    private ImageView main_IMG_leftCard, main_IMG_rightCard, main_IMG_background;
     private ImageButton main_BTN_centerPlay;
 
     WarCardGame game;
@@ -99,6 +100,7 @@ public class MainViewController { // Main Activity Controller Class
         main_IMG_rightCard = activity.findViewById(R.id.main_IMG_rightCard);
         main_BTN_centerPlay = activity.findViewById(R.id.main_BTN_centerPlay);
         main_LBL_center = activity.findViewById(R.id.main_LBL_center);
+        main_IMG_background = activity.findViewById(R.id.main_IMG_background);
         game = new WarCardGame(0, 0);
     }
 
@@ -114,5 +116,20 @@ public class MainViewController { // Main Activity Controller Class
         main_LBL_rightScore.setText(str);
     }
 
+    public void updateMain_IMG_background(int id){
+        Glide.with(activity).load(id).into(main_IMG_background);
+    }
+
+    public void updateMain_IMG_leftCard(int id){
+        Glide.with(activity).load(id).into(main_IMG_leftCard);
+    }
+
+    public void updateMain_IMG_rightCard(int id){
+        Glide.with(activity).load(id).into(main_IMG_rightCard);
+    }
+
+    public void main_BTN_centerPlay(int id){
+        Glide.with(activity).load(id).into(main_BTN_centerPlay);
+    }
 
 }

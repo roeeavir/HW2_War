@@ -4,20 +4,27 @@
     android:id="@+id/results_REL_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_peace"
-    android:gravity="center"
     tools:context=".Activities.MainActivity">
 
+    <ImageView
+        android:id="@+id/results_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
 
         <TextView
             android:id="@+id/results_LBL_winner"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="2"
             android:textSize="50sp" />
@@ -26,7 +33,6 @@
             android:id="@+id/results_BTN_exit"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_gravity="center"
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:text="EXIT" />

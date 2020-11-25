@@ -7,6 +7,13 @@
     tools:context=".Activities.MainActivity">
 
 
+    <ImageView
+        android:id="@+id/main_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+
     <LinearLayout
         android:id="@+id/layout_LYO_main"
         android:layout_width="match_parent"
@@ -80,15 +87,13 @@
                     android:id="@+id/main_IMG_leftCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/poker_deck" />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/main_IMG_rightCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/poker_deck" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -107,8 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/start" />
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
 

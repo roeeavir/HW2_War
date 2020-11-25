@@ -29,6 +29,7 @@ public class ResultsActivity extends AppCompatActivity {
         resultsViewController = new ResultsViewController(this);
 
         resultsViewController.updateResults_LBL_winner(winner);
+        resultsViewController.updateResults_IMG_background(R.drawable.background_peace);
 
     }
 

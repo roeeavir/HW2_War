@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
         mainViewController.updateMain_LBL_center("Game of War\nPress Start");
         mainViewController.updateMain_LBL_leftScore("0");
         mainViewController.updateMain_LBL_rightScore("0");
+        mainViewController.updateMain_IMG_background(R.drawable.background_war);
+        mainViewController.updateMain_IMG_leftCard(R.drawable.poker_deck);
+        mainViewController.updateMain_IMG_rightCard(R.drawable.poker_deck);
+        mainViewController.main_BTN_centerPlay(R.drawable.start);
 
     }
 
@@ -64,34 +68,34 @@ public class MainActivity extends AppCompatActivity {
 
         //Pause timer
     }
+//
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        if (hasFocus) {
+//            hideSystemUI();
+//        } else
+//            showSystemUI();
+//    }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            hideSystemUI();
-        } else
-            showSystemUI();
-    }
-
-    public void hideSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        //| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        //| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
-
-    public void showSystemUI() {
-        View decorView = this.getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
+//    public void hideSystemUI() {
+//        View decorView = getWindow().getDecorView();
+//        decorView.setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        //| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        //| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+//                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+//    }
+//
+//    public void showSystemUI() {
+//        View decorView = this.getWindow().getDecorView();
+//        decorView.setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//    }
 
 
 }
