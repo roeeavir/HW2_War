@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.hw2_war_316492644.Controllers.MainViewController;
 import com.example.hw2_war_316492644.R;
+import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,34 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Pause timer
     }
-//
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        super.onWindowFocusChanged(hasFocus);
-//        if (hasFocus) {
-//            hideSystemUI();
-//        } else
-//            showSystemUI();
-//    }
 
-//    public void hideSystemUI() {
-//        View decorView = getWindow().getDecorView();
-//        decorView.setSystemUiVisibility(
-//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                        //| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                        //| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-//                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-//    }
-//
-//    public void showSystemUI() {
-//        View decorView = this.getWindow().getDecorView();
-//        decorView.setSystemUiVisibility(
-//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-//    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            ScreenUtils.hideSystemUI(this);
+        }
+
+    }
 
 
 }
