@@ -10,8 +10,12 @@ import com.example.hw2_war_316492644.Controllers.MainViewController;
 import com.example.hw2_war_316492644.R;
 import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
+    // Variables
     private MainViewController mainViewController;
 
 
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         Log.d("pttt", "Pause");
         super.onPause();
+        mainViewController.stopCounting(); //Pause timer
     }
 
     @Override
@@ -62,12 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        Log.d("pttt", "Stop");
         super.onStop();
-
-        Log.d("pttt", "Timer Stop");
-
-        //Pause timer
+        mainViewController.stopCounting(); //Pause timer
     }
 
     @Override

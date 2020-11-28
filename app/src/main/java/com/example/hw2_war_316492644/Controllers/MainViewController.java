@@ -1,6 +1,7 @@
 package com.example.hw2_war_316492644.Controllers;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,14 +14,20 @@ import com.example.hw2_war_316492644.Activities.ResultsActivity;
 import com.example.hw2_war_316492644.Models.WarCardGame;
 import com.example.hw2_war_316492644.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainViewController { // Main Activity Controller Class
 
     // Variables
+    private final int DELAY = 200;
     private AppCompatActivity activity;
 
     private TextView main_LBL_leftScore, main_LBL_rightScore, main_LBL_center;
     private ImageView main_IMG_leftCard, main_IMG_rightCard, main_IMG_background;
     private ImageButton main_BTN_centerPlay;
+
+    MediaPlayer mp;
 
     WarCardGame game;
 
@@ -40,15 +47,18 @@ public class MainViewController { // Main Activity Controller Class
     }
 
     private void turn() {
+        main_BTN_centerPlay.setEnabled(false);
         // Changes ImageButton image to play_button
-        if (game.getDeck().size() == game.getFullDeckSize())
+        if (game.getDeck().size() == game.getFullDeckSize()){
+            playSound(R.raw.start_bell);
             main_BTN_centerPlay.setImageResource(activity.getResources().getIdentifier(
-                    "play_button", "drawable", activity.getPackageName()));
+                    "sand_clock", "drawable", activity.getPackageName()));
+        }
         // If the deck is empty - game is over and we announce the winner
         if (game.getDeck().isEmpty())
             winner();
         else
-            play();// Play game round
+            startCounting();// Play game round
     }
 
 
@@ -77,9 +87,13 @@ public class MainViewController { // Main Activity Controller Class
         str = "Turns left:\t\t" + game.getDeck().size() / 2 + "\n" + turn_info[2];
         updateMain_LBL_center(str);
 
-        if (game.getDeck().isEmpty())// Updates ImageView to finish line
+        if (game.getDeck().isEmpty()) {// Updates ImageView to finish line
             main_BTN_centerPlay.setImageResource(activity.getResources().getIdentifier(
                     "finish_line", "drawable", activity.getPackageName()));
+            main_BTN_centerPlay.setEnabled(true);
+        }
+
+
 
     }
 
@@ -102,6 +116,48 @@ public class MainViewController { // Main Activity Controller Class
         main_LBL_center = activity.findViewById(R.id.main_LBL_center);
         main_IMG_background = activity.findViewById(R.id.main_IMG_background);
         game = new WarCardGame(0, 0);
+    }
+
+    private Timer carousalTimer;
+
+    private void startCounting() {
+        carousalTimer = new Timer();
+        carousalTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!game.getDeck().isEmpty())
+                            play();
+                    }
+                });
+            }
+        }, 0, DELAY);
+    }
+
+    public void stopCounting() {
+        carousalTimer.cancel();
+    }
+
+    private void playSound(int rawId) {
+        if (mp!=null  &&  mp.isPlaying()) {
+            mp.reset();
+            mp.release();
+            mp = null;
+        }
+
+        mp = MediaPlayer.create(activity, rawId);
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+                mp.reset();
+                mp.release();
+                mp=null;
+            }
+        });
+        mp.start();
     }
 
     public void updateMain_LBL_center(String str) {
