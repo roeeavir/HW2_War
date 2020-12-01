@@ -5,24 +5,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.hw2_war_316492644.Controllers.MainViewController;
+import com.example.hw2_war_316492644.Controllers.GameViewController;
 import com.example.hw2_war_316492644.R;
 import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
-
-public class MainActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     // Variables
-    private MainViewController mainViewController;
+    private GameViewController gameViewController;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
 
-        mainViewController = new MainViewController(this);
-        mainViewController.updateMain_IMG_background(R.drawable.background_war);
+        gameViewController = new GameViewController(this);
+        gameViewController.updateMain_LBL_center("Game of War\nPress Start");
+        gameViewController.updateMain_LBL_leftScore("0");
+        gameViewController.updateMain_LBL_rightScore("0");
+        gameViewController.updateMain_IMG_background(R.drawable.background_pokewar);
+        gameViewController.updateMain_IMG_leftCard(R.drawable.poker_deck);
+        gameViewController.updateMain_IMG_rightCard(R.drawable.poker_deck);
+        gameViewController.main_BTN_centerPlay(R.drawable.start);
 
     }
 
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         Log.d("pttt", "Pause");
         super.onPause();
+        gameViewController.stopCounting(); //Pause timer
     }
 
     @Override
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        gameViewController.stopCounting(); //Pause timer
     }
 
     @Override
