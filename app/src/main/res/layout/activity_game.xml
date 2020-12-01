@@ -13,7 +13,6 @@
         android:scaleType="centerCrop" />
 
     <LinearLayout
-        android:id="@+id/main_LYO_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -28,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name_LBL_left"
+                android:id="@+id/game_LBL_leftName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -38,11 +37,12 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/main_LBL_leftScore"
+                android:id="@+id/game_LBL_leftScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:text="0"
                 android:textColor="#000000"
                 android:textSize="50sp" />
 
@@ -66,7 +66,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/main_LBL_center"
+                android:id="@+id/game_LBL_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -82,13 +82,13 @@
 
 
                 <ImageView
-                    android:id="@+id/main_IMG_leftCard"
+                    android:id="@+id/game_IMG_leftCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:id="@+id/main_IMG_rightCard"
+                    android:id="@+id/game_IMG_rightCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -105,7 +105,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/main_BTN_centerPlay"
+                    android:id="@+id/game_BTN_centerPlay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -124,7 +124,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name_LBL_right"
+                android:id="@+id/game_LBL_rightName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -134,11 +134,12 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/main_LBL_rightScore"
+                android:id="@+id/game_LBL_rightScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
+                android:text="0"
                 android:textColor="#000000"
                 android:textSize="50sp" />
 

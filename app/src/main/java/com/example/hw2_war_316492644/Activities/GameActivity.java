@@ -22,8 +22,6 @@ public class GameActivity extends AppCompatActivity {
 
         gameViewController = new GameViewController(this);
         gameViewController.updateMain_LBL_center("Game of War\nPress Start");
-        gameViewController.updateMain_LBL_leftScore("0");
-        gameViewController.updateMain_LBL_rightScore("0");
         gameViewController.updateMain_IMG_background(R.drawable.background_pokewar);
         gameViewController.updateMain_IMG_leftCard(R.drawable.poker_deck);
         gameViewController.updateMain_IMG_rightCard(R.drawable.poker_deck);
