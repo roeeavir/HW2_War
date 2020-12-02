@@ -59,13 +59,22 @@ public class WarCardGame {// Card deck class
         Collections.shuffle(this.deck);// Shuffles deck randomly
     }
 
-    public String getWinner() {
-        if (leftScore > rightScore)// Checks winner
-            return "Left Player";
-        else if (leftScore < rightScore)
-            return "Right Player";
-        else
-            return "Corona";
+    public String[] getWinner() {
+        String[] strArr = new String[2];
+        if (leftScore > rightScore) {// Checks winner
+            strArr[0] = "Left Player";
+            strArr[1] = "" + leftScore;
+        }
+        else if (leftScore < rightScore){
+            strArr[0] = "Right Player";
+            strArr[1] = "" + rightScore;
+        }
+        else{
+            strArr[0] = "Corona";
+            strArr[1] = "" + leftScore;
+        }
+
+        return strArr;
     }
 
     public int getFullDeckSize() {

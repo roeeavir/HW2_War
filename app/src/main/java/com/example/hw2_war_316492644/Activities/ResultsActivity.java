@@ -7,14 +7,16 @@ import android.os.Bundle;
 
 import com.example.hw2_war_316492644.Controllers.ResultsViewController;
 import com.example.hw2_war_316492644.R;
+import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends Activity_Base {
 
-    private final int DELAY = 500;
-    public static final String RESULT_WINNER = "RESULT_WINNER";
+    private final int DELAY = 300;
+    public static final String RESULT_WINNER_NAME = "RESULT_WINNER_NAME";
+    public static final String RESULT_WINNER_SCORE = "RESULT_WINNER_SCORE";
 
     private ResultsViewController resultsViewController;
 
@@ -23,13 +25,17 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+        isDoubleBackPressToClose = true;
 
 
-        String winner = getIntent().getStringExtra(RESULT_WINNER);
+        String winner = getIntent().getStringExtra(RESULT_WINNER_NAME);
+        String score = getIntent().getStringExtra(RESULT_WINNER_SCORE);
+
         resultsViewController = new ResultsViewController(this);
 
+        resultsViewController.setWinnerScore(score);
         resultsViewController.updateResults_LBL_winner(winner);
-        resultsViewController.updateResults_IMG_background(R.drawable.background_peace);
+        resultsViewController.updateResults_EDT_winnerName(winner);
 
     }
 
@@ -66,4 +72,5 @@ public class ResultsActivity extends AppCompatActivity {
     private void stopCounting() {
         carousalTimer.cancel();
     }
+
 }

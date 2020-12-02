@@ -1,15 +1,12 @@
 package com.example.hw2_war_316492644.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.hw2_war_316492644.Controllers.GameViewController;
 import com.example.hw2_war_316492644.R;
-import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends Activity_Base {
 
     // Variables
     private GameViewController gameViewController;
@@ -19,13 +16,15 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        isDoubleBackPressToClose = true;
 
         gameViewController = new GameViewController(this);
-        gameViewController.updateMain_LBL_center("Game of War\nPress Start");
-        gameViewController.updateMain_IMG_background(R.drawable.background_pokewar);
-        gameViewController.updateMain_IMG_leftCard(R.drawable.poker_deck);
-        gameViewController.updateMain_IMG_rightCard(R.drawable.poker_deck);
-        gameViewController.main_BTN_centerPlay(R.drawable.start);
+        gameViewController.updateGame_LBL_center("Game of War\nPress Start");
+        gameViewController.updateGame_IMG_background(R.drawable.background_pokewar);
+        gameViewController.updateGame_IMG_leftCard(R.drawable.poker_deck);
+        gameViewController.updateGame_IMG_rightCard(R.drawable.poker_deck);
+        gameViewController.updateGame_BTN_centerPlay(R.drawable.start);
+        gameViewController.setProgressBar();
 
     }
 
@@ -50,6 +49,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("pttt", "Resume");
         super.onResume();
+        gameViewController.enableButton();
     }
 
     @Override
@@ -63,15 +63,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         gameViewController.stopCounting(); //Pause timer
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            ScreenUtils.hideSystemUI(this);
-        }
-
     }
 
 

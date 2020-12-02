@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:id="@+id/main_IMG_background"
+        android:id="@+id/game_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
@@ -71,7 +71,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/purple_200"
-                android:textSize="20sp" />
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+
+            <ProgressBar
+                android:id="@+id/game_PRB_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/purple_200"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:minHeight="20dp"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

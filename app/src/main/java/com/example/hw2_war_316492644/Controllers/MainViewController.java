@@ -61,6 +61,7 @@ public class MainViewController { // Main Activity Controller Class
 
     private void toGame() {
         main_BTN_top10.setEnabled(false);// Prevents results activity to open more than once
+        playSound(R.raw.start_bell);
         Intent myIntent = new Intent(activity, GameActivity.class);
         activity.startActivity(myIntent);// Opens game activity
         main_BTN_top10.setEnabled(true);// Prevents results activity to open more than once
@@ -71,7 +72,7 @@ public class MainViewController { // Main Activity Controller Class
         main_BTN_play = activity.findViewById(R.id.main_BTN_play);
         main_BTN_top10 = activity.findViewById(R.id.main_BTN_top10);
         main_BTN_exit = activity.findViewById(R.id.main_BTN_exit);
-        main_IMG_background = activity.findViewById(R.id.main_IMG_background);
+        main_IMG_background = activity.findViewById(R.id.game_IMG_background);
     }
 
 
@@ -79,5 +80,15 @@ public class MainViewController { // Main Activity Controller Class
         Glide.with(activity).load(id).into(main_IMG_background);
     }
 
+    private void playSound(int rawId) {
+        if (mp != null && mp.isPlaying()) {
+            mp.reset();
+            mp.release();
+            mp = null;
+        }
+
+        mp = MediaPlayer.create(activity, rawId);
+        mp.start();
+    }
 
 }

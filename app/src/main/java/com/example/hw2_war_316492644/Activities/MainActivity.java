@@ -10,7 +10,7 @@ import com.example.hw2_war_316492644.R;
 import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity_Base {
 
     // Variables
     private MainViewController mainViewController;
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        isDoubleBackPressToClose = true;
 
         mainViewController = new MainViewController(this);
         mainViewController.updateMain_IMG_background(R.drawable.background_war);
@@ -60,14 +61,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            ScreenUtils.hideSystemUI(this);
-        }
-
-    }
 
 
 }
