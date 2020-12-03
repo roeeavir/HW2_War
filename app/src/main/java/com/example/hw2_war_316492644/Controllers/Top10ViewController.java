@@ -1,14 +1,16 @@
 package com.example.hw2_war_316492644.Controllers;
 
+import android.content.Context;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Top10ViewController {
 
     // Variables
-    private AppCompatActivity activity;
+    private Context context;
 
-    public Top10ViewController(AppCompatActivity activity) {
-        this.activity = activity;
+    public Top10ViewController(AppCompatActivity context) {
+        this.context = context;
         findViews();
         initViews();
     }

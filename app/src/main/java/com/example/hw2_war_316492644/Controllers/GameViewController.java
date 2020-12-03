@@ -1,5 +1,6 @@
 package com.example.hw2_war_316492644.Controllers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.view.View;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.hw2_war_316492644.Activities.GameActivity;
 import com.example.hw2_war_316492644.Activities.ResultsActivity;
 import com.example.hw2_war_316492644.Models.WarCardGame;
 import com.example.hw2_war_316492644.R;
+import com.example.hw2_war_316492644.Utils.AudioPlayer;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +26,7 @@ public class GameViewController { // Main Activity Controller Class
     // Variables
     private final int DELAY = 500;
     private int progressStatus = 0;
-    private AppCompatActivity activity;
+    private Context context;
 
     private TextView game_LBL_leftScore, game_LBL_rightScore, game_LBL_center;
     private ImageView game_IMG_leftCard, game_IMG_rightCard, game_IMG_background;
@@ -32,11 +35,12 @@ public class GameViewController { // Main Activity Controller Class
 
 
     MediaPlayer mp;
+    AudioPlayer ap;
 
     WarCardGame game;
 
-    public GameViewController(AppCompatActivity activity) {
-        this.activity = activity;
+    public GameViewController(AppCompatActivity context) {
+        this.context = context;
         findViews();
         initViews();
 
@@ -55,8 +59,8 @@ public class GameViewController { // Main Activity Controller Class
         game_BTN_centerPlay.setEnabled(false);
         // Changes ImageButton image to play_button
         if (!game.getDeck().isEmpty())
-            game_BTN_centerPlay.setImageResource(activity.getResources().getIdentifier(
-                    "sand_clock", "drawable", activity.getPackageName()));
+            game_BTN_centerPlay.setImageResource(context.getResources().getIdentifier(
+                    "sand_clock", "drawable", context.getPackageName()));
         // If the deck is empty - game is over and we announce the winner
         if (game.getDeck().isEmpty())
             winner();
@@ -70,10 +74,10 @@ public class GameViewController { // Main Activity Controller Class
         String str;
         String[] turn_info = game.getTurn_info();// Needed turn info - cards id & round winner
 
-        int left_Drawable_ID = activity.getResources().getIdentifier(turn_info[0],
-                "drawable", activity.getPackageName());// Gets card id from card object
-        int right_Drawable_ID = activity.getResources().getIdentifier(turn_info[1],
-                "drawable", activity.getPackageName());// Gets card id from card object
+        int left_Drawable_ID = context.getResources().getIdentifier(turn_info[0],
+                "drawable", context.getPackageName());// Gets card id from card object
+        int right_Drawable_ID = context.getResources().getIdentifier(turn_info[1],
+                "drawable", context.getPackageName());// Gets card id from card object
 
         game_IMG_leftCard.setImageResource(left_Drawable_ID); // Sets images
         game_IMG_rightCard.setImageResource(right_Drawable_ID);
@@ -91,8 +95,8 @@ public class GameViewController { // Main Activity Controller Class
         updateGame_LBL_center(str);
 
         if (game.getDeck().isEmpty()) {// Updates ImageView to finish line
-            game_BTN_centerPlay.setImageResource(activity.getResources().getIdentifier(
-                    "finish_line", "drawable", activity.getPackageName()));
+            game_BTN_centerPlay.setImageResource(context.getResources().getIdentifier(
+                    "finish_line", "drawable", context.getPackageName()));
             game_BTN_centerPlay.setEnabled(true);
         }
 
@@ -101,24 +105,26 @@ public class GameViewController { // Main Activity Controller Class
     private void winner() {
         game_BTN_centerPlay.setEnabled(false);// Prevents results activity to open more than once
         String[] strArr = game.getWinner();// Gets winner's name
-        Intent myIntent = new Intent(activity, ResultsActivity.class);
+        Intent myIntent = new Intent(context, ResultsActivity.class);
         myIntent.putExtra(ResultsActivity.RESULT_WINNER_NAME, strArr[0]);
         myIntent.putExtra(ResultsActivity.RESULT_WINNER_SCORE, strArr[1]);
-        activity.startActivity(myIntent);// Opens winner activity
-        activity.finish();// Exits this activity (exits app)
+        context.startActivity(myIntent);// Opens winner activity
+        ((GameActivity) context).finish();// Exits this activity (exits app)
     }
 
 
     private void findViews() {// Initializes views
-        game_LBL_leftScore = activity.findViewById(R.id.game_LBL_leftScore);
-        game_LBL_rightScore = activity.findViewById(R.id.game_LBL_rightScore);
-        game_IMG_leftCard = activity.findViewById(R.id.game_IMG_leftCard);
-        game_IMG_rightCard = activity.findViewById(R.id.game_IMG_rightCard);
-        game_BTN_centerPlay = activity.findViewById(R.id.game_BTN_centerPlay);
-        game_LBL_center = activity.findViewById(R.id.game_LBL_center);
-        game_IMG_background = activity.findViewById(R.id.game_IMG_background);
+        game_LBL_leftScore = ((GameActivity) context).findViewById(R.id.game_LBL_leftScore);
+        game_LBL_rightScore = ((GameActivity) context).findViewById(R.id.game_LBL_rightScore);
+        game_IMG_leftCard = ((GameActivity) context).findViewById(R.id.game_IMG_leftCard);
+        game_IMG_rightCard = ((GameActivity) context).findViewById(R.id.game_IMG_rightCard);
+        game_BTN_centerPlay = ((GameActivity) context).findViewById(R.id.game_BTN_centerPlay);
+        game_LBL_center = ((GameActivity) context).findViewById(R.id.game_LBL_center);
+        game_IMG_background = ((GameActivity) context).findViewById(R.id.game_IMG_background);
         game = new WarCardGame(0, 0);
-        progressBar = activity.findViewById((R.id.game_PRB_center));
+        progressBar = ((GameActivity) context).findViewById((R.id.game_PRB_center));
+        mp = new MediaPlayer();
+        ap = new AudioPlayer(context, mp);
     }
 
     private Timer carousalTimer;
@@ -129,14 +135,15 @@ public class GameViewController { // Main Activity Controller Class
             @Override
             public void run() {
                 progressStatus++;
-                activity.runOnUiThread(new Runnable() {
+                ((GameActivity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (!game.getDeck().isEmpty()){
                             progressBar.setProgress(progressStatus);
-                            playSound(R.raw.turn_click);
+                            ap.playAudio(R.raw.turn_click);
                             play();
-                        }
+                        }else
+                            carousalTimer.cancel();
                     }
                 });
             }
@@ -147,16 +154,6 @@ public class GameViewController { // Main Activity Controller Class
         carousalTimer.cancel();
     }
 
-    private void playSound(int rawId) {
-        if (mp != null && mp.isPlaying()) {
-            mp.reset();
-            mp.release();
-            mp = null;
-        }
-
-        mp = MediaPlayer.create(activity, rawId);
-        mp.start();
-    }
 
     public void updateGame_LBL_center(String str) {
         game_LBL_center.setText(str);
@@ -171,19 +168,19 @@ public class GameViewController { // Main Activity Controller Class
     }
 
     public void updateGame_IMG_background(int id) {
-        Glide.with(activity).load(id).into(game_IMG_background);
+        Glide.with(context).load(id).into(game_IMG_background);
     }
 
     public void updateGame_IMG_leftCard(int id) {
-        Glide.with(activity).load(id).into(game_IMG_leftCard);
+        Glide.with(context).load(id).into(game_IMG_leftCard);
     }
 
     public void updateGame_IMG_rightCard(int id) {
-        Glide.with(activity).load(id).into(game_IMG_rightCard);
+        Glide.with(context).load(id).into(game_IMG_rightCard);
     }
 
     public void updateGame_BTN_centerPlay(int id) {
-        Glide.with(activity).load(id).into(game_BTN_centerPlay);
+        Glide.with(context).load(id).into(game_BTN_centerPlay);
     }
 
     public void enableButton(){

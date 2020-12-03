@@ -1,19 +1,18 @@
 package com.example.hw2_war_316492644.Controllers;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
+import com.example.hw2_war_316492644.Activities.ResultsActivity;
 import com.example.hw2_war_316492644.Models.PlayerRecord;
 import com.example.hw2_war_316492644.R;
+import com.example.hw2_war_316492644.Utils.AudioPlayer;
 
 import java.util.Random;
 
@@ -21,33 +20,34 @@ public class ResultsViewController {
 
     // Variables
 
-    private AppCompatActivity activity;
+    private Context context;
 
     private TextView results_LBL_winner;
     private Button results_BTN_exit, results_BTN_addPlayerRecord;
     private EditText results_EDT_winnerName;
 
     MediaPlayer mp;
+    AudioPlayer ap;
 
     PlayerRecord playerRecord;
     Random r;
 
     private String winnerScore;
 
-    public ResultsViewController(AppCompatActivity activity) {
-        this.activity = activity;
+    public ResultsViewController(Context context) {
+        this.context = context;
 
         findViews();
         initViews();
 
-        playSound(R.raw.winning);
+        ap.playAudio(R.raw.winning);
     }
 
     private void initViews() {
         results_BTN_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.finish();// Exits activity
+                ((ResultsActivity) context).finish();// Exits activity
             }
         });
 
@@ -65,10 +65,12 @@ public class ResultsViewController {
     }
 
     private void findViews() {
-        results_LBL_winner = activity.findViewById(R.id.results_LBL_winner);
-        results_BTN_exit = activity.findViewById(R.id.results_BTN_exit);
-        results_EDT_winnerName = activity.findViewById(R.id.results_EDT_winnerName);
-        results_BTN_addPlayerRecord = activity.findViewById(R.id.results_BTN_addPlayerRecord);
+        results_LBL_winner = ((ResultsActivity) context).findViewById(R.id.results_LBL_winner);
+        results_BTN_exit = ((ResultsActivity) context).findViewById(R.id.results_BTN_exit);
+        results_EDT_winnerName = ((ResultsActivity) context).findViewById(R.id.results_EDT_winnerName);
+        results_BTN_addPlayerRecord = ((ResultsActivity) context).findViewById(R.id.results_BTN_addPlayerRecord);
+        mp = new MediaPlayer();
+        ap = new AudioPlayer(context, mp);
         r = new Random();
     }
 
@@ -93,16 +95,6 @@ public class ResultsViewController {
         this.winnerScore = winnerScore;
     }
 
-    private void playSound(int rawId) {
-        if (mp != null && mp.isPlaying()) {
-            mp.reset();
-            mp.release();
-            mp = null;
-        }
-
-        mp = MediaPlayer.create(activity, rawId);
-        mp.start();
-    }
 
 
 }
