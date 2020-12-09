@@ -8,6 +8,8 @@ public class WarCardGame {// Card deck class
     private final int MAX_DIFFERENT_CARD_SCORES = 13; // There are 13 different card scores
     private final int MIN_CARD_SCORE = 2; // 2 is the lowest score a card can have
     private final char[] CARD_TYPES = {'c', 'd', 'h', 'l'}; // Stands for Clubs, Diamonds, Hearts, Leaves
+    private final String RIGHT = "Right";
+    private final String LEFT = "Left";
 
     private ArrayList<WarCard> deck;
     private int leftScore;
@@ -46,10 +48,10 @@ public class WarCardGame {// Card deck class
 
         if (left_Drawable_Value < right_Drawable_Value) {// Checks and updates round winner
             rightScore++;
-            turn_info[2] = "Right";
+            turn_info[2] = RIGHT;
         } else if (left_Drawable_Value > right_Drawable_Value) {
             leftScore++;
-            turn_info[2] = "Left";
+            turn_info[2] = LEFT;
         } else
             turn_info[2] = "Draw";
 

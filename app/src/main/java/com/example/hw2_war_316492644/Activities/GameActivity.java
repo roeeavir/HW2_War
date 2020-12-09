@@ -23,6 +23,8 @@ public class GameActivity extends Activity_Base {
         gameViewController.updateGame_IMG_background(R.drawable.background_pokewar);
         gameViewController.updateGame_IMG_leftCard(R.drawable.poker_deck);
         gameViewController.updateGame_IMG_rightCard(R.drawable.poker_deck);
+        gameViewController.updateGame_IMG_leftPlayer(R.drawable.pikachu);
+        gameViewController.updateGame_IMG_rightPlayer(R.drawable.pokemon_trainer);
         gameViewController.updateGame_BTN_centerPlay(R.drawable.start);
         gameViewController.setProgressBar();
 

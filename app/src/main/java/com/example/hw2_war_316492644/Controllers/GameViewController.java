@@ -2,7 +2,6 @@ package com.example.hw2_war_316492644.Controllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,7 +15,7 @@ import com.example.hw2_war_316492644.Activities.GameActivity;
 import com.example.hw2_war_316492644.Activities.ResultsActivity;
 import com.example.hw2_war_316492644.Models.WarCardGame;
 import com.example.hw2_war_316492644.R;
-import com.example.hw2_war_316492644.Utils.AudioPlayer;
+import com.example.hw2_war_316492644.Utils.MyHelper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,17 +24,19 @@ public class GameViewController { // Main Activity Controller Class
 
     // Variables
     private final int DELAY = 500;
+    private final String RIGHT = "Right";
+    private final String LEFT = "Left";
+
     private int progressStatus = 0;
     private Context context;
 
     private TextView game_LBL_leftScore, game_LBL_rightScore, game_LBL_center;
-    private ImageView game_IMG_leftCard, game_IMG_rightCard, game_IMG_background;
+    private ImageView game_IMG_leftCard, game_IMG_rightCard, game_IMG_background,
+            game_IMG_leftPlayer, game_IMG_rightPlayer;
     private ImageButton game_BTN_centerPlay;
     private ProgressBar progressBar;
 
 
-    MediaPlayer mp;
-    AudioPlayer ap;
 
     WarCardGame game;
 
@@ -58,6 +59,7 @@ public class GameViewController { // Main Activity Controller Class
     private void press() {
         game_BTN_centerPlay.setEnabled(false);
         // Changes ImageButton image to play_button
+        MyHelper.getInstance().vibrate();
         if (!game.getDeck().isEmpty())
             game_BTN_centerPlay.setImageResource(context.getResources().getIdentifier(
                     "sand_clock", "drawable", context.getPackageName()));
@@ -82,10 +84,10 @@ public class GameViewController { // Main Activity Controller Class
         game_IMG_leftCard.setImageResource(left_Drawable_ID); // Sets images
         game_IMG_rightCard.setImageResource(right_Drawable_ID);
 
-        if (turn_info[2].equals("Right")) {// Checks and updates round winner
+        if (turn_info[2].equals(RIGHT)) {// Checks and updates round winner
             updateGame_LBL_rightScore("" + game.getRightScore());
             turn_info[2] += " +1";
-        } else if (turn_info[2].equals("Left")) {
+        } else if (turn_info[2].equals(LEFT)) {
             updateGame_LBL_leftScore("" + game.getLeftScore());
             turn_info[2] += " +1";
         }
@@ -121,10 +123,10 @@ public class GameViewController { // Main Activity Controller Class
         game_BTN_centerPlay = ((GameActivity) context).findViewById(R.id.game_BTN_centerPlay);
         game_LBL_center = ((GameActivity) context).findViewById(R.id.game_LBL_center);
         game_IMG_background = ((GameActivity) context).findViewById(R.id.game_IMG_background);
+        game_IMG_leftPlayer = ((GameActivity) context).findViewById(R.id.game_IMG_leftPlayer);
+        game_IMG_rightPlayer = ((GameActivity) context).findViewById(R.id.game_IMG_rightPlayer);
         game = new WarCardGame(0, 0);
         progressBar = ((GameActivity) context).findViewById((R.id.game_PRB_center));
-        mp = new MediaPlayer();
-        ap = new AudioPlayer(context, mp);
     }
 
     private Timer carousalTimer;
@@ -140,7 +142,7 @@ public class GameViewController { // Main Activity Controller Class
                     public void run() {
                         if (!game.getDeck().isEmpty()){
                             progressBar.setProgress(progressStatus);
-                            ap.playAudio(R.raw.turn_click);
+                            MyHelper.getInstance().playAudio(R.raw.turn_click);
                             play();
                         }else
                             carousalTimer.cancel();
@@ -182,6 +184,16 @@ public class GameViewController { // Main Activity Controller Class
     public void updateGame_BTN_centerPlay(int id) {
         Glide.with(context).load(id).into(game_BTN_centerPlay);
     }
+
+    public void updateGame_IMG_leftPlayer(int id) {
+        Glide.with(context).load(id).into(game_IMG_leftPlayer);
+    }
+
+    public void updateGame_IMG_rightPlayer(int id) {
+        Glide.with(context).load(id).into(game_IMG_rightPlayer);
+    }
+
+
 
     public void enableButton(){
         game_BTN_centerPlay.setEnabled(true);// Allows to restart the timer after resume

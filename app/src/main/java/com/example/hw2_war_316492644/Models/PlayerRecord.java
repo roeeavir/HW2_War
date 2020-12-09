@@ -8,11 +8,15 @@ public class PlayerRecord {
     private String name;
     private int score;
     private String date;
+    private double currentLongitude, currentLatitude;
+
 
     // Constructor
-    public PlayerRecord(String name, int score) {
+    public PlayerRecord(String name, int score, double currentLongitude, double currentLatitude) {
         this.name = name;
         this.score = score;
+        this.currentLongitude = currentLongitude;
+        this.currentLatitude = currentLatitude;
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy\nHH:mm:ss");
         this.date = format.format(System.currentTimeMillis());
     }
@@ -41,5 +45,13 @@ public class PlayerRecord {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public double getCurrentLongitude() {
+        return currentLongitude;
+    }
+
+    public double getCurrentLatitude() {
+        return currentLatitude;
     }
 }

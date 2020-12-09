@@ -2,7 +2,6 @@ package com.example.hw2_war_316492644.Controllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +13,7 @@ import com.example.hw2_war_316492644.Activities.GameActivity;
 import com.example.hw2_war_316492644.Activities.MainActivity;
 import com.example.hw2_war_316492644.Activities.Top10Activity;
 import com.example.hw2_war_316492644.R;
-import com.example.hw2_war_316492644.Utils.AudioPlayer;
+import com.example.hw2_war_316492644.Utils.MyHelper;
 
 public class MainViewController { // Main Activity Controller Class
 
@@ -24,8 +23,6 @@ public class MainViewController { // Main Activity Controller Class
     private ImageView main_IMG_background;
     private Button main_BTN_play, main_BTN_top10, main_BTN_exit;
 
-    MediaPlayer mp;
-    AudioPlayer ap;
 
     public MainViewController(AppCompatActivity context) {
         this.context = context;
@@ -65,7 +62,7 @@ public class MainViewController { // Main Activity Controller Class
 
     private void toGame() {
         main_BTN_top10.setEnabled(false);// Prevents results activity to open more than once
-        ap.playAudio(R.raw.start_bell);
+        MyHelper.getInstance().playAudio(R.raw.start_bell);
         Intent myIntent = new Intent(context, GameActivity.class);
         context.startActivity(myIntent);// Opens game activity
         main_BTN_top10.setEnabled(true);// Prevents results activity to open more than once
@@ -77,8 +74,6 @@ public class MainViewController { // Main Activity Controller Class
         main_BTN_top10 = ((MainActivity) context).findViewById(R.id.main_BTN_top10);
         main_BTN_exit = ((MainActivity) context).findViewById(R.id.main_BTN_exit);
         main_IMG_background = ((MainActivity) context).findViewById(R.id.game_IMG_background);
-        mp = new MediaPlayer();
-        ap = new AudioPlayer(context, mp);
     }
 
 

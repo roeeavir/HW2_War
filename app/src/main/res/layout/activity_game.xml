@@ -51,10 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-
                 android:gravity="center"
-                android:scaleType="fitCenter"
-                android:src="@drawable/pikachu" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
 
@@ -164,8 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:gravity="center"
-                android:scaleType="fitCenter"
-                android:src="@drawable/pokemon_trainer" />
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
     </LinearLayout>

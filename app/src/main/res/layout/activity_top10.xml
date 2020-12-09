@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Top10Activity">
+    tools:context=".Activities.Top10Activity"
+    android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/main_LAY_list"
+        android:id="@+id/top10_LAY_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -16,11 +17,22 @@
         android:background="#45454545"/>
 
     <FrameLayout
-        android:id="@+id/main_LAY_map"
+        android:id="@+id/top10_LAY_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="24dp"
-        android:background="#45454545"/>
+        android:background="#45454545"
+        />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/top10_BTN_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Back to Main Menu"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        />
+
+</LinearLayout>
