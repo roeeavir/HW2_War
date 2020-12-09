@@ -22,7 +22,6 @@ public class MyHelper {
     private static MyHelper instance;
     private Context appContext;
 
-    private Top10List top10List;
 
     private MediaPlayer mp;
 
@@ -32,7 +31,6 @@ public class MyHelper {
 
     private MyHelper(Context appContext) {
         this.appContext = appContext.getApplicationContext();
-        this.top10List = new Top10List();
     }
 
     public static void init(Context appContext) {
@@ -52,10 +50,8 @@ public class MyHelper {
         }
     }
 
-    public void addToTop10List(PlayerRecord playerRecord){
-        this.top10List.addPlayerRecord(playerRecord);
-    }
 
+    // Allows to play audio files
     public void playAudio(int rawId) {
         stopAudio();
         mp = MediaPlayer.create(this.appContext,rawId);
@@ -71,6 +67,7 @@ public class MyHelper {
         mp.start();
     }
 
+    // Stops playing audio
     public void stopAudio() {
         if (mp != null) {
             try {
@@ -86,10 +83,6 @@ public class MyHelper {
         }
     }
 
-
-    public Top10List getTop10List() {
-        return top10List;
-    }
 
     public void toast(String message) {
         Toast.makeText(appContext, message, Toast.LENGTH_SHORT).show();

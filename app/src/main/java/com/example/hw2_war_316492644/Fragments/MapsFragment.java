@@ -58,9 +58,10 @@ public class MapsFragment extends Fragment {
         return view;
     }
 
+    // Method for showing and zooming into a player's record saved location
     public void showLocationOnMap(double lon, double lat){
         LatLng latLng = new LatLng(lat, lon);
         gm.addMarker(new MarkerOptions().position((latLng)));
-        gm.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        gm.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
     }
 }

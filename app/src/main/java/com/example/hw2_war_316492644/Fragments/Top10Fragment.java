@@ -1,16 +1,14 @@
 package com.example.hw2_war_316492644.Fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,14 +16,20 @@ import com.example.hw2_war_316492644.Models.Top10List;
 import com.example.hw2_war_316492644.R;
 import com.example.hw2_war_316492644.Utils.CallBack;
 import com.example.hw2_war_316492644.Utils.MyHelper;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.hw2_war_316492644.Utils.Constants.SP_FILE;
 
 public class Top10Fragment extends Fragment {
 
+    public static final String TOP10 = "Top10";
+
+
     private ArrayAdapter<Top10List> arrayAdapter;
     private ListView top10_LSV_playerRecords;
+    private Top10List top10List;
 
     private CallBack callBack;
 
@@ -42,8 +46,16 @@ public class Top10Fragment extends Fragment {
         findViews(view);
         initViews();
 
+        SharedPreferences prefs = getActivity().getSharedPreferences(SP_FILE, MODE_PRIVATE);
+        Gson gson = new Gson();
 
-        top10_LSV_playerRecords.setAdapter(arrayAdapter);
+        top10List = generateData(prefs, gson);
+
+        if (top10List != null) {
+            arrayAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, top10List.getTopPlayers());
+
+            top10_LSV_playerRecords.setAdapter(arrayAdapter);
+        }
 
 
         return view;
@@ -54,11 +66,10 @@ public class Top10Fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (callBack != null) {
-                    callBack.displayLocation(MyHelper.getInstance().getTop10List().getTopPlayers()
-                            .get(position).getCurrentLongitude(), MyHelper.getInstance()
-                            .getTop10List().getTopPlayers().get(position).getCurrentLatitude());
+                    callBack.displayLocation(top10List.getTopPlayers().get(position).
+                            getCurrentLongitude(), top10List.getTopPlayers().get(position)
+                            .getCurrentLatitude());
                 }
-//                MyHelper.getInstance().toast(MyHelper.getInstance().getTop10List().getTopPlayers().get(position).getName());
             }
         });
     }
@@ -66,6 +77,10 @@ public class Top10Fragment extends Fragment {
 
     private void findViews(View view) {
         top10_LSV_playerRecords = view.findViewById(R.id.top10_LSV_playerRecords);
-        arrayAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, MyHelper.getInstance().getTop10List().getTopPlayers());
+    }
+
+    private Top10List generateData(SharedPreferences prefs, Gson gson) {
+        String jsonFromMemory = prefs.getString(TOP10, "");
+        return gson.fromJson(jsonFromMemory, Top10List.class);
     }
 }

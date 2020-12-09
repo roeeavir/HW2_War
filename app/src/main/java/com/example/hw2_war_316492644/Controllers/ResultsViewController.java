@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.hw2_war_316492644.Utils.Constants.SP_FILE;
 
 import com.google.gson.Gson;
 
@@ -34,6 +35,7 @@ public class ResultsViewController {
 
     // Variables
     private static final int REQUEST_CODE = 101;
+    public static final String TOP10 = "Top10";
     private Context context;
 
     private TextView results_LBL_winner;
@@ -44,6 +46,7 @@ public class ResultsViewController {
 
 
     PlayerRecord playerRecord;
+    Top10List top10List;
     Random r;
 
     private Location currentLocation;
@@ -59,18 +62,6 @@ public class ResultsViewController {
 
         MyHelper.getInstance().playAudio(R.raw.winning);
 
-//
-//        SharedPreferences prefs = context.getSharedPreferences(SP_FILE, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        Gson gson = new Gson();
-//
-//        Top10List topTen = generateData();
-//        String json = gson.toJson(topTen);
-//        editor.putString("PlayerRecord", json);
-//
-//
-//        String jsonFromMemory = prefs.getString("PlayerRecord", "");
-//        Top10List topTenFromMemory = gson.fromJson(jsonFromMemory, Top10List.class);
     }
 
     private void initViews() {
@@ -111,12 +102,31 @@ public class ResultsViewController {
                     playerRecord = new PlayerRecord(results_EDT_winnerName.getText().toString()
                             , Integer.parseInt(winnerScore), currentLocation.getLongitude(), currentLocation.getLatitude());
 
-                    MyHelper.getInstance().addToTop10List(playerRecord);
-//                    MyHelper.getInstance().toast("Latitude: " + currentLocation.getLatitude() + "\nLongitude: " +
-//                            currentLocation.getLongitude());
+                    SharedPreferences prefs = context.getSharedPreferences(SP_FILE, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    Gson gson = new Gson();
+
+                    top10List = generateData(prefs, gson);
+
+                    if (top10List == null)
+                        top10List = new Top10List();
+
+                    top10List.addPlayerRecord(playerRecord);
+
+
+                    String json = gson.toJson(top10List);
+                    editor.putString(TOP10, json);
+                    editor.apply();
+
                 }
             }
         });
+    }
+
+    private Top10List generateData(SharedPreferences prefs, Gson gson) {
+        String jsonFromMemory = prefs.getString(TOP10, "");
+        Top10List top10FromMemory = gson.fromJson(jsonFromMemory, Top10List.class);
+        return top10FromMemory;
     }
 
     private void findViews() {
