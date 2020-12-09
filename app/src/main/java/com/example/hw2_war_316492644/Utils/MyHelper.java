@@ -6,10 +6,13 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.hw2_war_316492644.Models.PlayerRecord;
 import com.example.hw2_war_316492644.Models.Top10List;
+
+import java.util.ArrayList;
 
 public class MyHelper {
 
@@ -81,6 +84,11 @@ public class MyHelper {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public Top10List getTop10List() {
+        return top10List;
     }
 
     public void toast(String message) {

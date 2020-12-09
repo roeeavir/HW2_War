@@ -45,6 +45,8 @@ public class GameViewController { // Main Activity Controller Class
         findViews();
         initViews();
 
+        game = new WarCardGame(0, 0);
+
     }
 
     private void initViews() {
@@ -125,7 +127,6 @@ public class GameViewController { // Main Activity Controller Class
         game_IMG_background = ((GameActivity) context).findViewById(R.id.game_IMG_background);
         game_IMG_leftPlayer = ((GameActivity) context).findViewById(R.id.game_IMG_leftPlayer);
         game_IMG_rightPlayer = ((GameActivity) context).findViewById(R.id.game_IMG_rightPlayer);
-        game = new WarCardGame(0, 0);
         progressBar = ((GameActivity) context).findViewById((R.id.game_PRB_center));
     }
 

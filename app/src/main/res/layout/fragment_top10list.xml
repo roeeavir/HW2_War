@@ -5,12 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2B712E"
+    android:background="#7BA6AC"
     android:orientation="vertical"
     android:gravity="center">
 
     <ListView
+        android:id="@+id/top10_LSV_playerRecords"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:dividerPadding="10dp"
+        android:dividerHeight="4.0sp"
+        />
 
 </LinearLayout>

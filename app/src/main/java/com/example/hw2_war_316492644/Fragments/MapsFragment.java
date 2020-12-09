@@ -15,9 +15,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsFragment extends Fragment {
+
+    private GoogleMap gm;
 
     @Nullable
     @Override
@@ -30,7 +33,8 @@ public class MapsFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                gm = googleMap;
+                gm.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
                         MarkerOptions markerOptions = new MarkerOptions();
@@ -38,19 +42,25 @@ public class MapsFragment extends Fragment {
 
                         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
 
-                        googleMap.clear();
+                        gm.clear();
 
                         // Zoom animation
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        gm.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng, 10
                         ));
 
-                        googleMap.addMarker(markerOptions);
+                        gm.addMarker(markerOptions);
                     }
                 });
             }
         });
 
         return view;
+    }
+
+    public void showLocationOnMap(double lon, double lat){
+        LatLng latLng = new LatLng(lat, lon);
+        gm.addMarker(new MarkerOptions().position((latLng)));
+        gm.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 }

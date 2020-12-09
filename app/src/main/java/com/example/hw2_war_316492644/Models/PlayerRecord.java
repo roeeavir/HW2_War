@@ -2,7 +2,7 @@ package com.example.hw2_war_316492644.Models;
 
 import java.text.SimpleDateFormat;
 
-public class PlayerRecord {
+public class PlayerRecord implements Comparable<PlayerRecord> {
 
     // Variables
     private String name;
@@ -17,7 +17,7 @@ public class PlayerRecord {
         this.score = score;
         this.currentLongitude = currentLongitude;
         this.currentLatitude = currentLatitude;
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy\nHH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss  dd.MM.yy");
         this.date = format.format(System.currentTimeMillis());
     }
 
@@ -53,5 +53,17 @@ public class PlayerRecord {
 
     public double getCurrentLatitude() {
         return currentLatitude;
+    }
+
+    @Override
+    public String toString() {
+        return "name: " + name + '\n' +
+                "score: " + score + '\n' +
+                "time & date: " + date;
+    }
+
+    @Override
+    public int compareTo(PlayerRecord playerRecord) {
+        return playerRecord.getScore() - this.getScore();
     }
 }

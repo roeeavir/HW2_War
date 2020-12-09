@@ -2,6 +2,7 @@ package com.example.hw2_war_316492644.Controllers;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -9,18 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
 import com.example.hw2_war_316492644.Activities.ResultsActivity;
 import com.example.hw2_war_316492644.Models.PlayerRecord;
+import com.example.hw2_war_316492644.Models.Top10List;
 import com.example.hw2_war_316492644.R;
 import com.example.hw2_war_316492644.Utils.MyHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
+import static android.content.Context.MODE_PRIVATE;
+
+import com.google.gson.Gson;
+
 
 import java.util.Random;
 
@@ -49,7 +55,22 @@ public class ResultsViewController {
         findViews();
         initViews();
 
+        r = new Random();
+
         MyHelper.getInstance().playAudio(R.raw.winning);
+
+//
+//        SharedPreferences prefs = context.getSharedPreferences(SP_FILE, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        Gson gson = new Gson();
+//
+//        Top10List topTen = generateData();
+//        String json = gson.toJson(topTen);
+//        editor.putString("PlayerRecord", json);
+//
+//
+//        String jsonFromMemory = prefs.getString("PlayerRecord", "");
+//        Top10List topTenFromMemory = gson.fromJson(jsonFromMemory, Top10List.class);
     }
 
     private void initViews() {
@@ -72,6 +93,7 @@ public class ResultsViewController {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         fetchLocationAndUpdatePlayerRecords();
         results_BTN_addPlayerRecord.setEnabled(false);
+        MyHelper.getInstance().toast("Player record has been saved");
     }
 
     private void fetchLocationAndUpdatePlayerRecords() {
@@ -87,11 +109,11 @@ public class ResultsViewController {
                 if (location != null) {
                     currentLocation = location;
                     playerRecord = new PlayerRecord(results_EDT_winnerName.getText().toString()
-                            , Integer.parseInt(winnerScore), currentLocation.getLatitude(), currentLocation.getLatitude());
+                            , Integer.parseInt(winnerScore), currentLocation.getLongitude(), currentLocation.getLatitude());
+
                     MyHelper.getInstance().addToTop10List(playerRecord);
-                    Toast.makeText(context.getApplicationContext(),
-                            "Latitude: " + currentLocation.getLatitude() + "\nLongitude: " +
-                                    currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+//                    MyHelper.getInstance().toast("Latitude: " + currentLocation.getLatitude() + "\nLongitude: " +
+//                            currentLocation.getLongitude());
                 }
             }
         });
@@ -102,7 +124,6 @@ public class ResultsViewController {
         results_BTN_exit = ((ResultsActivity) context).findViewById(R.id.results_BTN_exit);
         results_EDT_winnerName = ((ResultsActivity) context).findViewById(R.id.results_EDT_winnerName);
         results_BTN_addPlayerRecord = ((ResultsActivity) context).findViewById(R.id.results_BTN_addPlayerRecord);
-        r = new Random();
     }
 
     public void changeColor() {
