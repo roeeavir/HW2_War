@@ -77,6 +77,7 @@ public class MainViewController { // Main Activity Controller Class
     }
 
 
+    // Views update method
     public void updateMain_IMG_background(int id) {
         Glide.with(context).load(id).into(main_IMG_background);
     }

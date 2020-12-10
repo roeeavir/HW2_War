@@ -22,44 +22,15 @@ public class MainActivity extends Activity_Base {
         setContentView(R.layout.activity_main);
         isDoubleBackPressToClose = true;
 
+        Log.d("pttt", "onCreateView - MainActivity");
+
         mainViewController = new MainViewController(this);
         mainViewController.updateMain_IMG_background(R.drawable.background_war);
 
     }
 
 
-    // State functions
-    @Override
-    protected void onPause() {
-        Log.d("pttt", "Pause");
-        super.onPause();
-    }
 
-    @Override
-    protected void onStart() {
-        Log.d("pttt", "Start");
-        super.onStart();
-
-        Log.d("pttt", "Resume/Start Timer");
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d("pttt", "Resume");
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d("pttt", "Destroy");
-        super.onDestroy();
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 
 
 

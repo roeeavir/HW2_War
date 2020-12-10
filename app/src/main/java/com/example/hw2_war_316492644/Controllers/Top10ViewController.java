@@ -27,7 +27,7 @@ public class Top10ViewController {
             @Override
             public void onClick(View v) {
                 ((Top10Activity) context).finish();
-            }
+            } // Exits activity
         });
     }
 

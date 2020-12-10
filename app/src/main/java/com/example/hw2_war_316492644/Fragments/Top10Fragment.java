@@ -21,11 +21,9 @@ import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.hw2_war_316492644.Utils.Constants.SP_FILE;
+import static com.example.hw2_war_316492644.Utils.Constants.TOP10;
 
 public class Top10Fragment extends Fragment {
-
-    public static final String TOP10 = "Top10";
-
 
     private ArrayAdapter<Top10List> arrayAdapter;
     private ListView top10_LSV_playerRecords;
@@ -40,23 +38,13 @@ public class Top10Fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("pttt", "onCreateView - Fragment_List");
+        Log.d("pttt", "onCreateView - Top10Fragment");
 
         View view = inflater.inflate(R.layout.fragment_top10list, container, false);
         findViews(view);
         initViews();
 
-        SharedPreferences prefs = getActivity().getSharedPreferences(SP_FILE, MODE_PRIVATE);
-        Gson gson = new Gson();
-
-        top10List = generateData(prefs, gson);
-
-        if (top10List != null) {
-            arrayAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, top10List.getTopPlayers());
-
-            top10_LSV_playerRecords.setAdapter(arrayAdapter);
-        }
-
+        setListView(view);
 
         return view;
     }
@@ -79,6 +67,23 @@ public class Top10Fragment extends Fragment {
         top10_LSV_playerRecords = view.findViewById(R.id.top10_LSV_playerRecords);
     }
 
+    // Sets the top10 list using gson/json data
+    private void setListView(View view){
+        Log.d("pttt", "Fetching top10 list data");
+        SharedPreferences prefs = getActivity().getSharedPreferences(SP_FILE, MODE_PRIVATE);
+        Gson gson = new Gson();
+
+        top10List = generateData(prefs, gson);
+
+        if (top10List != null) {
+            arrayAdapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, top10List.getTopPlayers());
+
+            top10_LSV_playerRecords.setAdapter(arrayAdapter);
+        }
+
+    }
+
+    // A method for loading a top10 list from file
     private Top10List generateData(SharedPreferences prefs, Gson gson) {
         String jsonFromMemory = prefs.getString(TOP10, "");
         return gson.fromJson(jsonFromMemory, Top10List.class);

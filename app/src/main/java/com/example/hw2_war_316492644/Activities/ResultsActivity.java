@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.hw2_war_316492644.Controllers.ResultsViewController;
 import com.example.hw2_war_316492644.R;
@@ -26,6 +27,8 @@ public class ResultsActivity extends Activity_Base {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         isDoubleBackPressToClose = true;
+
+        Log.d("pttt", "onCreateView - ResultsActivity");
 
 
         String winner = getIntent().getStringExtra(RESULT_WINNER_NAME);
@@ -56,6 +59,7 @@ public class ResultsActivity extends Activity_Base {
 
     private void startCounting() {
         carousalTimer = new Timer();
+        Log.d("pttt", "Starting carousal timer");
         carousalTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -70,6 +74,7 @@ public class ResultsActivity extends Activity_Base {
     }
 
     private void stopCounting() {
+        Log.d("pttt", "Stopping carousal timer");
         carousalTimer.cancel();
     }
 

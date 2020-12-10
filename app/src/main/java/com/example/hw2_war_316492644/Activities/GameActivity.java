@@ -18,6 +18,8 @@ public class GameActivity extends Activity_Base {
         setContentView(R.layout.activity_game);
         isDoubleBackPressToClose = true;
 
+        Log.d("pttt", "onCreateView - GameActivity");
+
         gameViewController = new GameViewController(this);
         gameViewController.updateGame_LBL_center("Game of War\nPress Start");
         gameViewController.updateGame_IMG_background(R.drawable.background_pokewar);
@@ -31,35 +33,7 @@ public class GameActivity extends Activity_Base {
     }
 
 
-    // State functions
-    @Override
-    protected void onPause() {
-        Log.d("pttt", "Pause");
-        super.onPause();
-        gameViewController.stopCounting(); //Pause timer
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("pttt", "Start");
-        super.onStart();
-
-        Log.d("pttt", "Resume/Start Timer");
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d("pttt", "Resume");
-        super.onResume();
-        gameViewController.enableButton();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d("pttt", "Destroy");
-        super.onDestroy();
-    }
-
+    // State function
 
     @Override
     protected void onStop() {

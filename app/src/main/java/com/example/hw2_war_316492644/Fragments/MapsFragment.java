@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class MapsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.d("pttt", "onCreateView - MapsFragment");
+
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
@@ -44,11 +47,12 @@ public class MapsFragment extends Fragment {
 
                         gm.clear();
 
-                        // Zoom animation
+                        // Zooms on click
                         gm.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng, 10
                         ));
 
+                        // Allows to add a marker on click
                         gm.addMarker(markerOptions);
                     }
                 });
@@ -60,6 +64,7 @@ public class MapsFragment extends Fragment {
 
     // Method for showing and zooming into a player's record saved location
     public void showLocationOnMap(double lon, double lat){
+        Log.d("pttt", "Showing selected player location on google maps");
         LatLng latLng = new LatLng(lat, lon);
         gm.addMarker(new MarkerOptions().position((latLng)));
         gm.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));

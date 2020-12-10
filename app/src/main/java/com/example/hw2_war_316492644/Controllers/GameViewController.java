@@ -2,6 +2,7 @@ package com.example.hw2_war_316492644.Controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,7 +37,7 @@ public class GameViewController { // Main Activity Controller Class
     private ImageButton game_BTN_centerPlay;
     private ProgressBar progressBar;
 
-
+    private Timer carousalTimer;
 
     WarCardGame game;
 
@@ -61,7 +62,7 @@ public class GameViewController { // Main Activity Controller Class
     private void press() {
         game_BTN_centerPlay.setEnabled(false);
         // Changes ImageButton image to play_button
-        MyHelper.getInstance().vibrate();
+        MyHelper.getInstance().vibrate(); // Vibrates phone when game starts or finishes
         if (!game.getDeck().isEmpty())
             game_BTN_centerPlay.setImageResource(context.getResources().getIdentifier(
                     "sand_clock", "drawable", context.getPackageName()));
@@ -130,10 +131,10 @@ public class GameViewController { // Main Activity Controller Class
         progressBar = ((GameActivity) context).findViewById((R.id.game_PRB_center));
     }
 
-    private Timer carousalTimer;
-
+    // Carousal Timer that controls the game (plays the game, updates audio and progress bar)
     private void startCounting() {
         carousalTimer = new Timer();
+        Log.d("pttt", "Starting/Resuming timer");
         carousalTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -146,7 +147,7 @@ public class GameViewController { // Main Activity Controller Class
                             MyHelper.getInstance().playAudio(R.raw.turn_click);
                             play();
                         }else
-                            carousalTimer.cancel();
+                            stopCounting();
                     }
                 });
             }
@@ -154,9 +155,11 @@ public class GameViewController { // Main Activity Controller Class
     }
 
     public void stopCounting() {
+        Log.d("pttt", "Stopping game timer");
         carousalTimer.cancel();
     }
 
+    // Views update methods
 
     public void updateGame_LBL_center(String str) {
         game_LBL_center.setText(str);
@@ -194,17 +197,17 @@ public class GameViewController { // Main Activity Controller Class
         Glide.with(context).load(id).into(game_IMG_rightPlayer);
     }
 
+    // Sets progress bar's height and max capacity
+    public void setProgressBar(){
+        progressBar.setScaleY(3f);
+        progressBar.setMax(game.getFullDeckSize()/2);
+    }
 
-
+    // Re-enables the play button, in case the game was paused
     public void enableButton(){
         game_BTN_centerPlay.setEnabled(true);// Allows to restart the timer after resume
         if(!game.getDeck().isEmpty())
             updateGame_BTN_centerPlay(R.drawable.start);
-    }
-
-    public void setProgressBar(){
-        progressBar.setScaleY(3f);
-        progressBar.setMax(game.getFullDeckSize()/2);
     }
 
 }
