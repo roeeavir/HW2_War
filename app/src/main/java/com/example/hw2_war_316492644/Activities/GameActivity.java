@@ -22,7 +22,7 @@ public class GameActivity extends Activity_Base {
 
         gameViewController = new GameViewController(this);
         gameViewController.updateGame_LBL_center("Game of War\nPress Start");
-        gameViewController.updateGame_IMG_background(R.drawable.background_pokewar);
+        gameViewController.updateGame_IMG_background(R.drawable.background_pokemonwar);
         gameViewController.updateGame_IMG_leftCard(R.drawable.poker_deck);
         gameViewController.updateGame_IMG_rightCard(R.drawable.poker_deck);
         gameViewController.updateGame_IMG_leftPlayer(R.drawable.pikachu);
@@ -38,8 +38,23 @@ public class GameActivity extends Activity_Base {
     @Override
     protected void onStop() {
         super.onStop();
-        gameViewController.stopCounting(); //Pause timer
+        if (gameViewController.isTimerRunning())
+            gameViewController.stopCounting(); //Pause timer
     }
 
+    @Override
+    protected void onDestroy() {
+        Log.d("pttt", "Destroy");
+        if (gameViewController.isTimerRunning())
+            gameViewController.stopCounting(); //Stop timer
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("pttt", "Resume and re-enable play button");
+        gameViewController.enableButton();
+        super.onResume();
+    }
 
 }

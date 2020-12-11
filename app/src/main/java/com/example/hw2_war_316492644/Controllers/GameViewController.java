@@ -38,6 +38,7 @@ public class GameViewController { // Main Activity Controller Class
     private ProgressBar progressBar;
 
     private Timer carousalTimer;
+    private boolean timer_flag = false;
 
     WarCardGame game;
 
@@ -143,11 +144,15 @@ public class GameViewController { // Main Activity Controller Class
                     @Override
                     public void run() {
                         if (!game.getDeck().isEmpty()){
+                            timer_flag = true;
                             progressBar.setProgress(progressStatus);
                             MyHelper.getInstance().playAudio(R.raw.turn_click);
                             play();
-                        }else
+                        }else{
                             stopCounting();
+                            timer_flag = false;
+                        }
+
                     }
                 });
             }
@@ -208,6 +213,10 @@ public class GameViewController { // Main Activity Controller Class
         game_BTN_centerPlay.setEnabled(true);// Allows to restart the timer after resume
         if(!game.getDeck().isEmpty())
             updateGame_BTN_centerPlay(R.drawable.start);
+    }
+
+    public boolean isTimerRunning(){// Checks if the timer is running
+        return timer_flag;
     }
 
 }

@@ -41,7 +41,7 @@ public class MapsFragment extends Fragment {
                     @Override
                     public void onMapClick(LatLng latLng) {
                         MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(latLng);
+                        markerOptions.position(latLng); // Set position of marker
 
                         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
 
@@ -52,7 +52,7 @@ public class MapsFragment extends Fragment {
                                 latLng, 10
                         ));
 
-                        // Allows to add a marker on click
+                        // Adds a marker on the map
                         gm.addMarker(markerOptions);
                     }
                 });

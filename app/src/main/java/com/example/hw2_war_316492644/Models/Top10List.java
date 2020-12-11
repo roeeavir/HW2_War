@@ -21,7 +21,9 @@ public class Top10List {
         return topPlayers;
     }
 
+    // Adds a player record if needed (depends on the score and max size of the list) and sorts the list.
     public void addPlayerRecord(PlayerRecord playerRecord){
+        Collections.sort(this.topPlayers);
         if (topPlayers.size() < MAX_LIST_SIZE)
             topPlayers.add(playerRecord);
         else{
@@ -33,9 +35,7 @@ public class Top10List {
         Collections.sort(this.topPlayers);
     }
 
-
-    public Top10List setRecords(ArrayList<PlayerRecord> topPlayers) {
+    public void setTopPlayers(ArrayList<PlayerRecord> topPlayers) {
         this.topPlayers = topPlayers;
-        return this;
     }
 }
