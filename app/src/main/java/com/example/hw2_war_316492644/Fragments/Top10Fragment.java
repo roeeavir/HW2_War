@@ -70,7 +70,7 @@ public class Top10Fragment extends Fragment {
     // Sets the top10 list using gson/json data
     private void setListView(View view){
         Log.d("pttt", "Fetching top10 list data");
-        SharedPreferences prefs = getActivity().getSharedPreferences(SP_FILE, MODE_PRIVATE);
+        SharedPreferences prefs = view.getContext().getSharedPreferences(SP_FILE, MODE_PRIVATE);
         Gson gson = new Gson();
 
         top10List = generateData(prefs, gson);

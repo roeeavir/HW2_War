@@ -7,17 +7,20 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hw2_war_316492644.Activities.Top10Activity;
+import com.example.hw2_war_316492644.Fragments.MapsFragment;
 import com.example.hw2_war_316492644.R;
 
-public class Top10ViewController {
+public class Top10ViewController {// Top10 Activity Controller Class
 
     // Variables
     private Context context;
+    private MapsFragment mapsFragment;
 
-    private Button top10_BTN_back;
+    private Button top10_BTN_back, top10_BTN_clearMap;
 
-    public Top10ViewController(AppCompatActivity context) {
+    public Top10ViewController(AppCompatActivity context, MapsFragment mapsFragment) {
         this.context = context;
+        this.mapsFragment = mapsFragment;
         findViews();
         initViews();
     }
@@ -29,9 +32,17 @@ public class Top10ViewController {
                 ((Top10Activity) context).finish();
             } // Exits activity
         });
+        top10_BTN_clearMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapsFragment.clearMarkers(); // Clears google maps from its markers
+            }
+        });
     }
+
 
     private void findViews() {
         top10_BTN_back = ((Top10Activity) context).findViewById(R.id.top10_BTN_back);
+        top10_BTN_clearMap = ((Top10Activity) context).findViewById(R.id.top10_BTN_clearMap);
     }
 }

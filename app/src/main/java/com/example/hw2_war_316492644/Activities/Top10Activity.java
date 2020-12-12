@@ -29,14 +29,14 @@ public class Top10Activity extends Activity_Base {
 
         Log.d("pttt", "onCreateView - Top10Activity");
 
-        top10ViewController = new Top10ViewController(this);
-
         mapsFragment = new MapsFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.top10_LAY_map, mapsFragment).commit();
 
         top10ListFragment = new Top10Fragment();
         top10ListFragment.setCallBack(callBack);
         getSupportFragmentManager().beginTransaction().add(R.id.top10_LAY_list, top10ListFragment).commit();
+
+        top10ViewController = new Top10ViewController(this, mapsFragment);
 
 
 

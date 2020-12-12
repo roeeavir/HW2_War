@@ -21,7 +21,7 @@ import com.example.hw2_war_316492644.Utils.MyHelper;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GameViewController { // Main Activity Controller Class
+public class GameViewController { // Game Activity Controller Class
 
     // Variables
     private final int DELAY = 500;

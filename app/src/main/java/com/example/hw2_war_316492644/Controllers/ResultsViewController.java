@@ -35,7 +35,7 @@ import com.google.gson.Gson;
 
 import java.util.Random;
 
-public class ResultsViewController {
+public class ResultsViewController { // Results Activity Controller Class
 
     // Variables
     private static final int REQUEST_CODE = 101; // Google Maps related code
@@ -100,8 +100,11 @@ public class ResultsViewController {
     // Adds a player's record to top10 list and sends a message using Toast
     private void AddPlayerRecordToTop10() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
-        fetchLocationAndUpdatePlayerRecords();
-        results_BTN_addPlayerRecord.setEnabled(false);
+        fetchLocationAndUpdatePlayerRecords(); // Fetching location and updating player record list
+        results_BTN_addPlayerRecord.setEnabled(false); // Disabling button
+        results_EDT_winnerName.setEnabled(false); // Disabling name changing
+        results_EDT_winnerName.setFocusable(false); // Disabling name changing
+        MyHelper.getInstance().playAudio(R.raw.player_update);
         MyHelper.getInstance().toast("Player record has been saved");
     }
 
@@ -152,8 +155,7 @@ public class ResultsViewController {
     // A method for loading a top10 list from file
     private Top10List generateData(SharedPreferences prefs, Gson gson) {
         String jsonFromMemory = prefs.getString(TOP10, "");
-        Top10List top10FromMemory = gson.fromJson(jsonFromMemory, Top10List.class);
-        return top10FromMemory;
+        return gson.fromJson(jsonFromMemory, Top10List.class);
     }
 
 

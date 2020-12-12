@@ -56,14 +56,14 @@ public class PlayerRecord implements Comparable<PlayerRecord> {
     }
 
     @Override
-    public String toString() {
+    public String toString() { // String to show on the top10 list
         return "name: " + name + '\n' +
                 "score: " + score + '\n' +
                 "time & date: " + date;
     }
 
     @Override
-    public int compareTo(PlayerRecord playerRecord) {
+    public int compareTo(PlayerRecord playerRecord) { // Allows to sort top10 list by score
         return playerRecord.getScore() - this.getScore();
     }
 }

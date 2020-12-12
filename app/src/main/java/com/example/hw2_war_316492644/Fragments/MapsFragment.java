@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hw2_war_316492644.R;
+import com.example.hw2_war_316492644.Utils.MyHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +41,7 @@ public class MapsFragment extends Fragment {
                 gm.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
+                        Log.d("pttt", "Google maps clicked");
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng); // Set position of marker
 
@@ -68,5 +70,11 @@ public class MapsFragment extends Fragment {
         LatLng latLng = new LatLng(lat, lon);
         gm.addMarker(new MarkerOptions().position((latLng)));
         gm.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        MyHelper.getInstance().playAudio(R.raw.map_marker);
+        MyHelper.getInstance().vibrate();
+    }
+
+    public void clearMarkers(){// Clears the map from its markers
+        gm.clear();
     }
 }

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:background="#A6A389"
         >
 
         <FrameLayout
@@ -31,20 +32,38 @@
             android:background="#45454545"
             />
 
-        <Button
-            android:id="@+id/top10_BTN_back"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
             android:layout_gravity="center"
-            android:text="Back to Main Menu"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            />
+            >
+
+            <Button
+                android:id="@+id/top10_BTN_clearMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Clear Map Markers"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:background="#00BCD4"
+                />
+
+            <Button
+                android:id="@+id/top10_BTN_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Back to Main Menu"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:background="#030304"
+                />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>

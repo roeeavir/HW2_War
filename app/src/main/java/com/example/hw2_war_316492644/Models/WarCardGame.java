@@ -16,6 +16,7 @@ public class WarCardGame {// Card deck class
     private int rightScore;
     private String[] turn_info;
 
+    // Constructor
     public WarCardGame(int leftScore, int rightScore) {
         this.leftScore = leftScore;
         this.rightScore = rightScore;
@@ -61,6 +62,7 @@ public class WarCardGame {// Card deck class
         Collections.shuffle(this.deck);// Shuffles deck randomly
     }
 
+    // Returns a string array which contains the data of who won the round and the winner's score
     public String[] getWinner() {
         String[] strArr = new String[2];
         if (leftScore > rightScore) {// Checks winner

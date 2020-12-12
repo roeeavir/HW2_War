@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hw2_war_316492644.Utils.MyHelper;
 import com.example.hw2_war_316492644.Utils.ScreenUtils;
 
 public class Activity_Base extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class Activity_Base extends AppCompatActivity {
             }
             else { // Shows a message in case the back button is pressed
                 Log.d("pttt", "Tapped the back button once");
-                Toast.makeText(this, "Tap back button again to return/exit", Toast.LENGTH_SHORT).show();
+                MyHelper.getInstance().toast("Tap back button again to return/exit");
             }
 
             mBackPressed = System.currentTimeMillis();
@@ -70,6 +71,7 @@ public class Activity_Base extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        Log.d("pttt", "Stop");
         super.onStop();
     }
 }
