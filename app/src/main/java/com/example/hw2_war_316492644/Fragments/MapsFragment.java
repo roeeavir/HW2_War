@@ -32,7 +32,14 @@ public class MapsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
+        initializeMap();
+
+        return view;
+    }
+
+    public void initializeMap(){
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.google_map);
 
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -60,8 +67,6 @@ public class MapsFragment extends Fragment {
                 });
             }
         });
-
-        return view;
     }
 
     // Method for showing and zooming into a player's record saved location

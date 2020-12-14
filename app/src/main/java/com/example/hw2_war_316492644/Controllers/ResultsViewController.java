@@ -105,7 +105,7 @@ public class ResultsViewController { // Results Activity Controller Class
         results_EDT_winnerName.setEnabled(false); // Disabling name changing
         results_EDT_winnerName.setFocusable(false); // Disabling name changing
         MyHelper.getInstance().playAudio(R.raw.player_update);
-        MyHelper.getInstance().toast("Player record has been saved");
+
     }
 
     // Method for getting the current location of the user and then setting the gson/json data
@@ -144,7 +144,7 @@ public class ResultsViewController { // Results Activity Controller Class
         if (top10List == null) // If there is no top 10 list, create one
             top10List = new Top10List();
 
-        top10List.addPlayerRecord(playerRecord); // Updates top10 list
+        MyHelper.getInstance().toast(top10List.addPlayerRecord(playerRecord)); // Updates top10 list
 
         // Loads updated top10 list into file
         String json = gson.toJson(top10List);

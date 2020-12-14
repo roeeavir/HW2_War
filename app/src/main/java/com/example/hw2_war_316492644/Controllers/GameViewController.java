@@ -24,7 +24,7 @@ import java.util.TimerTask;
 public class GameViewController { // Game Activity Controller Class
 
     // Variables
-    private final int DELAY = 500;
+    private final int DELAY = 2000;
     private final String RIGHT = "Right";
     private final String LEFT = "Left";
 
