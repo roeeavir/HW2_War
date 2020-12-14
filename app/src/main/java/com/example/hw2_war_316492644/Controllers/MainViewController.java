@@ -62,7 +62,7 @@ public class MainViewController { // Main Activity Controller Class
 
     private void toGame() {
         main_BTN_top10.setEnabled(false);// Prevents results activity to open more than once
-        MyHelper.getInstance().playAudio(R.raw.start_bell);
+        MyHelper.getInstance().playAudio(R.raw.gun_fight);
         Intent myIntent = new Intent(context, GameActivity.class);
         context.startActivity(myIntent);// Opens game activity
         main_BTN_top10.setEnabled(true);// Prevents results activity to open more than once

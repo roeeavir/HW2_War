@@ -21,6 +21,7 @@ import com.example.hw2_war_316492644.Models.PlayerRecord;
 import com.example.hw2_war_316492644.Models.Top10List;
 import com.example.hw2_war_316492644.R;
 import com.example.hw2_war_316492644.Utils.MyHelper;
+import com.example.hw2_war_316492644.Utils.ScreenUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -82,19 +83,24 @@ public class ResultsViewController { // Results Activity Controller Class
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             // Changes label based on the winner's new custom name
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() != 0)
+                if (s.length() != 0)
                     updateResults_LBL_winner(s.toString());
                 else
                     updateResults_LBL_winner("Player");
+                ScreenUtils.hideSystemUI((ResultsActivity)context); // Hides system UI
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
+
+
         });
+
     }
 
     // Adds a player's record to top10 list and sends a message using Toast

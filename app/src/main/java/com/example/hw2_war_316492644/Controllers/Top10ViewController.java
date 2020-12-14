@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hw2_war_316492644.Activities.Top10Activity;
 import com.example.hw2_war_316492644.Fragments.MapsFragment;
 import com.example.hw2_war_316492644.R;
+import com.example.hw2_war_316492644.Utils.MyHelper;
 
 public class Top10ViewController {// Top10 Activity Controller Class
 
@@ -35,6 +36,7 @@ public class Top10ViewController {// Top10 Activity Controller Class
         top10_BTN_clearMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyHelper.getInstance().playAudio(R.raw.clear_map);
                 mapsFragment.clearMarkers(); // Clears google maps from its markers
             }
         });
