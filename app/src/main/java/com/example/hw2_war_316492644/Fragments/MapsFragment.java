@@ -73,7 +73,8 @@ public class MapsFragment extends Fragment {
     public void showLocationOnMap(double lon, double lat){
         Log.d("pttt", "Showing selected player location on google maps");
         LatLng latLng = new LatLng(lat, lon);
-        gm.addMarker(new MarkerOptions().position((latLng)));
+        gm.addMarker(new MarkerOptions().position((latLng)).
+                title(latLng.latitude + " : " + latLng.longitude));
         gm.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         MyHelper.getInstance().playAudio(R.raw.map_marker);
         MyHelper.getInstance().vibrate();

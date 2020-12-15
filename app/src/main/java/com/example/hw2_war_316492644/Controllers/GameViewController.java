@@ -85,8 +85,8 @@ public class GameViewController { // Game Activity Controller Class
         int right_Drawable_ID = context.getResources().getIdentifier(turn_info[1],
                 "drawable", context.getPackageName());// Gets card id from card object
 
-        game_IMG_leftCard.setImageResource(left_Drawable_ID); // Sets images
-        game_IMG_rightCard.setImageResource(right_Drawable_ID);
+        updateGame_IMG_leftCard(left_Drawable_ID); // Sets images
+        updateGame_IMG_rightCard(right_Drawable_ID);
 
         if (turn_info[2].equals(RIGHT)) {// Checks and updates round winner
             updateGame_LBL_rightScore("" + game.getRightScore());
